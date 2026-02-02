@@ -1,6 +1,5 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 /* src/lib.rs */
-
 #![deny(missing_docs)]
 #![allow(clippy::collapsible_if)]
 
@@ -50,4 +49,4 @@ mod parser;
 
 pub use ast::{Limits, Node};
 pub use error::Error;
-pub use parser::{parse, Parser};
+pub use parser::{Parser, parse};

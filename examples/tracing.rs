@@ -6,21 +6,21 @@
 use mst_parser::parse;
 
 fn main() {
-    #[cfg(feature = "tracing")]
-    {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        tracing_subscriber::fmt()
-            .with_span_events(FmtSpan::ENTER | FmtSpan::CLOSE)
-            .init();
-        
-        println!("Tracing initialized. Parsing...");
-        let input = "Hello {{user.{{id}}}}";
-        let _ = parse(input);
-    }
+	#[cfg(feature = "tracing")]
+	{
+		use tracing_subscriber::fmt::format::FmtSpan;
+		tracing_subscriber::fmt()
+			.with_span_events(FmtSpan::ENTER | FmtSpan::CLOSE)
+			.init();
 
-    #[cfg(not(feature = "tracing"))]
-    {
-        println!("Please run this example with 'full' or 'tracing' feature enabled:");
-        println!("cargo run --example tracing --features full");
-    }
+		println!("Tracing initialized. Parsing...");
+		let input = "Hello {{user.{{id}}}}";
+		let _ = parse(input);
+	}
+
+	#[cfg(not(feature = "tracing"))]
+	{
+		println!("Please run this example with 'full' or 'tracing' feature enabled:");
+		println!("cargo run --example tracing --features full");
+	}
 }
