@@ -4,7 +4,7 @@ license = "MIT"
 version = "0.1.1"
 edition = "2024"
 rust-version = "1.93"
-categories = ["parser-implementations", "template-engine"]
+categories = ["parser-implementations", "template-engine", "no-std"]
 description = "A zero-dependency, mustache-style template parser supporting nested variables."
 keywords = ["mustache", "parser", "template", "ast", "nested"]
 readme = "README.md"
@@ -14,17 +14,26 @@ repository = "https://github.com/canmi21/mst-parser.git"
 all-features = true
 
 [dependencies]
-thiserror = "2"
-tracing = { version = "0.1", optional = true }
+thiserror = { version = "2", default-features = false }
+tracing = { version = "0.1", optional = true, default-features = false, features = ["attributes"] }
 
 [features]
-default = []
-full = ["tracing"]
-tracing = ["dep:tracing"]
+default = ["std"]
+std = ["thiserror/std", "tracing?/std"]
+full = ["tracing", "std"]
 
 [[example]]
-name = "simple"
-required-features = ["full"]
+name = "basic"
+
+[[example]]
+name = "nested"
+
+[[example]]
+name = "limits"
+
+[[example]]
+name = "tracing"
+required-features = ["tracing"]
 
 [dev-dependencies]
 tracing-subscriber = "0.3"
