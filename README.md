@@ -1,6 +1,6 @@
 # MST Parser
 
-A zero-dependency, mustache-style template parser supporting nested variables.
+A zero-dependency, no_std, mustache-style template parser supporting nested variables.
 
 `mst-parser` provides a robust recursive descent parser for `{{variable}}` style syntax. It produces an Abstract Syntax Tree (AST) suitable for template engines or configuration processors, with built-in protections against nested recursion.
 
