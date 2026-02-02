@@ -1,5 +1,3 @@
-/* src/lib.rs */
-
 #![cfg_attr(not(feature = "std"), no_std)]
 #![deny(missing_docs)]
 #![allow(clippy::collapsible_if)]
@@ -21,10 +19,11 @@
 //! ## Example
 //!
 //! ```rust
-//! use mst_parser::{parse, Limits, Node};
+//! use mst_parser::{parse, Limits, Node, Parser};
 //!
 //! let input = "Hello {{user.{{attr}}}}!";
-//! let nodes = parse(input, &Limits::default()).unwrap();
+//! // Use default limits
+//! let nodes = parse(input).unwrap();
 //!
 //! assert_eq!(nodes.len(), 3);
 //! match &nodes[1] {
@@ -34,6 +33,11 @@
 //!     }
 //!     _ => panic!("Expected variable"),
 //! }
+//!
+//! // Or with custom limits
+//! let limits = Limits { max_depth: 2, ..Limits::default() };
+//! let parser = Parser::new(limits);
+//! let nodes = parser.parse(input).unwrap();
 //! ```
 
 extern crate alloc;
@@ -44,4 +48,4 @@ mod parser;
 
 pub use ast::{Limits, Node};
 pub use error::Error;
-pub use parser::parse;
+pub use parser::{parse, Parser};
