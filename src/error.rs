@@ -1,4 +1,5 @@
-/// Errors that can occur during parsing.
+/* src/error.rs */
+
 #[derive(Debug, Clone, PartialEq, Eq, thiserror::Error)]
 pub enum Error {
     /// The recursion depth exceeded `Limits::max_depth`.

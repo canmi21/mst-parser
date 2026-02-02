@@ -1,3 +1,5 @@
+/* examples/nested.rs */
+
 //! Nested variable example.
 
 use mst_parser::parse;

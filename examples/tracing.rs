@@ -1,3 +1,5 @@
+/* examples/tracing.rs */
+
 //! Tracing integration example.
 //! Run with: RUST_LOG=trace cargo run --example tracing --features full
 

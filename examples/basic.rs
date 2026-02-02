@@ -1,3 +1,5 @@
+/* examples/basic.rs */
+
 //! Basic usage example.
 
 use mst_parser::parse;

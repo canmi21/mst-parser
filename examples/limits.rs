@@ -1,3 +1,5 @@
+/* examples/limits.rs */
+
 //! Limits configuration example.
 
 use mst_parser::{Limits, Parser};

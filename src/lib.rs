@@ -1,4 +1,6 @@
 #![cfg_attr(not(feature = "std"), no_std)]
+/* src/lib.rs */
+
 #![deny(missing_docs)]
 #![allow(clippy::collapsible_if)]
 
