@@ -32,8 +32,8 @@ mst-parser = { version = "0.1", features = ["full"] }
 
 | Feature | Description |
 |---------|-------------|
-| `tracing` | Enables logging and diagnostic instrumentation via the `tracing` crate. |
 | `std` | Enables standard library support for error handling and formatting. |
+| `tracing` | Enables logging and diagnostic instrumentation via the `tracing` crate. |
 | `full` | Enables all features above. |
 
 ## License
