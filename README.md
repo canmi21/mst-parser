@@ -1,48 +1,39 @@
-# Sigterm
+# MST Parser
 
-Signal-aware async control and cancellation primitives for Tokio.
+A zero-dependency, mustache-style template parser supporting nested variables.
 
-`sigterm` abstracts away the boilerplate of listening for system signals (`Ctrl+C`, `SIGTERM`, etc.) and coordinating shutdown across multiple asynchronous tasks.
+`mst-parser` provides a robust recursive descent parser for `{{variable}}` style syntax. It produces an Abstract Syntax Tree (AST) suitable for template engines or configuration processors, with built-in protections against nested recursion.
 
 ## Features
 
-- **Signal Waiting**: Wait for `Ctrl+C` or `SIGTERM` across platforms with a single `await`. Use `try_wait()` for non-panicking version.
-- **Cancellation Tokens**: Hierarchy-based cancellation (parent cancels child) powered by `tokio-util`.
-- **Shutdown Primitives**:
-  - `Shutdown`: One-shot channel for single-task termination.
-  - `Broadcast`: Notify multiple subscribers of a shutdown event.
-  - `ShutdownGuard`: RAII guard that triggers shutdown when dropped (useful for panics).
-- **Framework Integration**: `shutdown_signal()` helper designed for seamless integration with `axum::serve`.
-- **Unix Extensions**: Listen for custom signal sets (`SIGHUP`, `SIGQUIT`, etc.) on Unix systems.
+- **Nested Variables**: Supports complex nested structures like `{{ key.{{subsection}} }}`.
+- **Safety**: Configurable limits on recursion depth and node count to prevent malicious inputs.
+- **Zero Dependency**: Lightweight implementation with no mandatory external dependencies.
+- **no_std Support**: Fully compatible with `#![no_std]` environments (requires `alloc`).
+- **Diagnostics**: Optional `tracing` integration for detailed parser execution logs.
 
 ## Usage Examples
 
 Check the `examples` directory for runnable code:
 
-- **Basic Usage**: [`examples/simple.rs`](examples/simple.rs) - Wait for a simple shutdown signal.
-- **Server Integration**: [`examples/shutdown_signal.rs`](examples/shutdown_signal.rs) - Combine system signals with internal cancellation (e.g., for Axum).
-- **Task Orchestration**: [`examples/broadcast.rs`](examples/broadcast.rs) - Coordinate multiple workers.
-- **Hierarchical Cancellation**: [`examples/cancellation.rs`](examples/cancellation.rs) - Manage tree-structured tasks.
-- **Scope Guard**: [`examples/guard.rs`](examples/guard.rs) - Ensure shutdown on exit or panic.
+- **Basic Usage**: [`examples/basic.rs`](examples/basic.rs) - Parse a simple template string into an AST.
+- **Nested Variables**: [`examples/nested.rs`](examples/nested.rs) - Demonstrate deep variable nesting.
+- **Safety Limits**: [`examples/limits.rs`](examples/limits.rs) - Enforce parser depth and node limits.
+- **Tracing**: [`examples/tracing.rs`](examples/tracing.rs) - Enable and configure diagnostic logging.
 
 ## Installation
 
 ```toml
 [dependencies]
-sigterm = { version = "0.3", features = ["full"] }
+mst-parser = { version = "0.1", features = ["full"] }
 ```
 
 ## Feature Flags
 
 | Feature | Description |
 |---------|-------------|
-| `signal` | Enables signal handling (Ctrl+C, SIGTERM) - enabled by default. |
-| `sync` | Enables synchronization primitives (`Shutdown`, `Broadcast`). |
-| `macros` | Enables Tokio macro support. |
-| `rt` | Enables Tokio runtime support (required for `wait_for`). |
-| `cancel` | Enables hierarchical cancellation tokens via `tokio-util`. |
-| `time` | Enables timeout support for signal waiting. |
-| `tracing` | Enables optional tracing instrumentation for debugging. |
+| `tracing` | Enables logging and diagnostic instrumentation via the `tracing` crate. |
+| `std` | Enables standard library support for error handling and formatting. |
 | `full` | Enables all features above. |
 
 ## License
