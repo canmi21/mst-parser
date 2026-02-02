@@ -1,5 +1,6 @@
 /* src/error.rs */
 
+/// Errors that can occur during template parsing.
 #[derive(Debug, Clone, PartialEq, Eq, thiserror::Error)]
 pub enum Error {
     /// The recursion depth exceeded `Limits::max_depth`.
